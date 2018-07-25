@@ -306,7 +306,6 @@
     <Compile Include="Assets\Scripts\DetectGrappleable.cs" />
     <Compile Include="Assets\Scripts\Grapple.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
-    <Compile Include="Assets\Scripts\MouseLook2.cs" />
     <Compile Include="Assets\Scripts\movement.cs" />
   </ItemGroup>
   <ItemGroup>

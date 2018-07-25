@@ -86,38 +86,17 @@ public class Grapple : MonoBehaviour
         if (isFired && isHooked == false && isGrabbed == false && isSwinging == false)
         {
             RaycastHit hit;
-            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * maxDistance, Color.red);
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, maxDistance))
             {
+                Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * maxDistance, Color.red);
                 hook.transform.position = Vector3.MoveTowards(hook.transform.position, hit.point, hookTravelSpeed * Time.deltaTime);
             }
             else
             {
-                Debug.Log("else");
-                hook.transform.position = Vector3.MoveTowards(hook.transform.position, playerCam.transform.forward+transform.forward, hookTravelSpeed * Time.deltaTime);
+                hook.transform.position = Vector3.MoveTowards(hook.transform.position, playerCam.transform.position + playerCam.transform.forward * (maxDistance + 1), hookTravelSpeed * Time.deltaTime);
             }
         }
 
-
-
-        /*
-        if (isFired)
-        {
-            rope.SetVertexCount(2);
-            rope.SetPosition(0, hookHolster.transform.position);
-            rope.SetPosition(1, hook.transform.position);
-        }
-
-
-        if (isFired && isHooked == false && isGrabbed == false && isSwinging == false)
-        {
-            hook.transform.Translate(Vector3.forward * Time.deltaTime * hookTravelSpeed);
-            currentDistance = Vector3.Distance(transform.position, hook.transform.position);
-
-            if (currentDistance >= maxDistance)
-                RetractHook();
-        }
-        */
 
         //hooked  
         if (isHooked && isFired)
@@ -134,7 +113,7 @@ public class Grapple : MonoBehaviour
                 if (isGrounded == false)
                 {
                     this.transform.Translate(Vector3.up * Time.deltaTime * (hookedObject.GetComponent<Collider>().bounds.size.y + climbUp));
-                    this.transform.Translate(Vector3.forward * Time.deltaTime * climbForward );
+                    this.transform.Translate(Vector3.forward * Time.deltaTime * climbForward);
                 }
 
                 //if (transform.position.y < hookedObject.GetComponent<Collider>().bounds.size.y)
@@ -150,7 +129,7 @@ public class Grapple : MonoBehaviour
         }
 
 
-//pull in object
+        //pull in object
         if (isGrabbed)
         {
             grabbedObject.transform.parent = hook.transform;
@@ -169,7 +148,7 @@ public class Grapple : MonoBehaviour
                 hook.transform.position = hookHolster.transform.position;
             }
         }
-	}
+    }
 
     IEnumerator Climb()
     {
